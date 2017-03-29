@@ -2,13 +2,14 @@
 #include <string>
 #include <GL\glew.h>
 #include "Transform.h"
+#include "Camera.h"
 
 class Shader {
 public:
 	Shader(const std::string& filename);
 	virtual ~Shader();
 	void bind();
-	void update(const Transform& transform);
+	void update(const Transform& transform, const Camera& cam);
 	
 private:
 	static const unsigned int NUM_SHADERS = 2;

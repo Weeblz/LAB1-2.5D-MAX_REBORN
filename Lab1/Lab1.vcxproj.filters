@@ -25,5 +25,9 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Camera.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

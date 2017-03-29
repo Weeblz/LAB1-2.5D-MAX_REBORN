@@ -16,7 +16,7 @@ public:
 	Mesh(Vertex* vertices, int numVertices);
 	virtual ~Mesh();
 
-	void draw();
+	void draw(GLenum mode);
 
 private:
 	enum {POSITION_VB, NUM_BUFFERS};
