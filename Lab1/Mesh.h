@@ -1,6 +1,7 @@
 #pragma once
 #include <glm\glm.hpp>
 #include <GL\glew.h>
+#include <string>
 
 class Vertex {
 public:
@@ -13,7 +14,8 @@ private:
 
 class Mesh {
 public:
-	Mesh(Vertex* vertices, int numVertices);
+	Mesh(std::string path); //loading meshses from obj files
+	Mesh(Vertex* vertices, int numVertices); //creating meshes manually
 	virtual ~Mesh();
 
 	void draw(GLenum mode);

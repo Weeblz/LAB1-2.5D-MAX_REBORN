@@ -26,6 +26,8 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Figure.h" />
+    <ClInclude Include="TwBar.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

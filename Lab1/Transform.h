@@ -31,6 +31,12 @@ public:
 	void setRotation(glm::vec3 rot) { rotation = rot; }
 	void setScale(glm::vec3 sc) { scale = sc; }
 
+	void reset() {
+		position = glm::vec3();
+		rotation = glm::vec3();
+		scale = glm::vec3(1.0f, 1.0f, 1.0f);
+	}
+
 private:
 	glm::vec3 position;
 	glm::vec3 rotation;

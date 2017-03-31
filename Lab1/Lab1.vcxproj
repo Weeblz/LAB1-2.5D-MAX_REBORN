@@ -156,8 +156,10 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="TwBar.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Figure.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Transform.h" />

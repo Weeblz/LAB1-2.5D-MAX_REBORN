@@ -2,19 +2,16 @@
 #include <tinyobjloader/tiny_obj_loader.h>
 #include <iostream>
 #include <vector>
-
 #include "Mesh.h"
 
-Mesh::Mesh(Vertex* vertices, int numVertices) {
-	std::string inputfile = "res/11.obj";
+void LoadMesh(std::string path, std::vector<Vertex>& vertices) {
+	//std::string inputfile = "res/ellipsoid.obj";
 	tinyobj::attrib_t attrib;
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
 
 	std::string err;
-	bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, inputfile.c_str());
-
-	std::vector<Vertex> verts;
+	bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, path.c_str());
 
 	if (!err.empty()) { // `err` may contain warning message.
 		std::cerr << err << std::endl;
@@ -38,20 +35,29 @@ Mesh::Mesh(Vertex* vertices, int numVertices) {
 				float vx = attrib.vertices[3 * idx.vertex_index + 0];
 				float vy = attrib.vertices[3 * idx.vertex_index + 1];
 				float vz = attrib.vertices[3 * idx.vertex_index + 2];
-				verts.push_back(Vertex({vx, vy, vz}));
+				vertices.push_back(Vertex({ vx, vy, vz }));
 			}
 			index_offset += fv;
 
 			// per-face material
-			shapes[s].mesh.material_ids[f];
+			//shapes[s].mesh.material_ids[f];
 		}
 	}
+}
 
-	toDraw = verts.size();
-	vertices = verts.data();
-	numVertices = verts.size();
+Mesh::Mesh(std::string path) {
+	std::vector<Vertex> vertices;
+	LoadMesh(path, vertices);
 
-	//toDraw = numVertices;
+	Vertex* verts = vertices.data();
+	int numVertices = vertices.size();
+
+	this->Mesh::Mesh(verts, numVertices);
+}
+
+Mesh::Mesh(Vertex* vertices, int numVertices) {
+	
+	toDraw = numVertices;
 
 	glGenVertexArrays(1, &myVertexArrayObject);
 	glBindVertexArray(myVertexArrayObject);
