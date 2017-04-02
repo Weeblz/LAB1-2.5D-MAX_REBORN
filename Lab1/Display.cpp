@@ -1,6 +1,7 @@
 #include "Display.h"
 #include <iostream>
 #include <GL\glew.h>
+#include <AntTweakBar.h>
 
 Display::Display(int width, int height, const std::string& windowTitle) {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -32,12 +33,20 @@ Display::~Display() {
 void Display::windowUpdate() {
 	SDL_GL_SwapWindow(myWindow);
 
+	int handled;
+
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
-		if (event.type == SDL_QUIT) {
-			windowClosed = true;
+
+		handled = TwEventSDL(&event, SDL_MAJOR_VERSION, SDL_MINOR_VERSION);
+
+		if (!handled) {
+			if (event.type == SDL_QUIT) {
+				windowClosed = true;
+			}
 		}
 	}
+
 }
 
 bool Display::isClosed() {

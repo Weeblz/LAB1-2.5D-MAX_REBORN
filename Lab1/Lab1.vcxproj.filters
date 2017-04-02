@@ -19,6 +19,9 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h" />
@@ -27,7 +30,7 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Figure.h" />
-    <ClInclude Include="TwBar.h" />
+    <ClInclude Include="Bar.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
