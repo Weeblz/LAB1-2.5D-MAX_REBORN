@@ -37,6 +37,14 @@ public:
 		scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	}
 
+	const Transform operator + (const Transform& a) {
+		Transform result(*this);
+		result.position = this->position + a.position;
+		result.rotation = this->rotation + a.rotation;
+		result.scale = this->scale + a.scale;
+		return result;
+	}
+
 private:
 	glm::vec3 position;
 	glm::vec3 rotation;

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <AntTweakBar.h>
+#include "AntTweakBar.h"
 #include "Figure.h"
 
 extern std::vector<Figure>objects;

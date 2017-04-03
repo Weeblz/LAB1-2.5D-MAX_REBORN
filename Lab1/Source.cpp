@@ -34,6 +34,11 @@ int main(int argc, char** argv) {
 		X.draw(GL_LINES);
 		Y.draw(GL_LINES);
 		Z.draw(GL_LINES);
+
+		for (int i = 0; i < objects.size(); i++) {
+			shader.update(objects[i].getTransformation(), camera);
+			objects[i].getType() == Ellipsoid ? ellipsoid.draw(GL_TRIANGLES) : cuboid.draw(GL_TRIANGLES);
+		}
 		//cuboid.draw(GL_TRIANGLES);
 
 		//Dynamic.setScale({2, 2, 2});
