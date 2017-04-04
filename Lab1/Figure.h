@@ -20,6 +20,10 @@ public:
 	void updateState(glm::vec4 newColor) {
 		color = newColor;
 	}
+	void updateActive() { active = !active; }
+
+	bool isActive() { return active; }
+
 	Transform getTransformation() { return transformation; }
 	figureType getType() { return essence; }
 

@@ -1,9 +1,2 @@
-﻿  Source.cpp
-c:\users\god tier user\documents\github\2.5d-max_reborn\lab1-2.5d-max_reborn\lab1\source.cpp(38): warning C4018: '<': signed/unsigned mismatch
-  Shader.cpp
-  Mesh.cpp
-c:\users\god tier user\documents\github\2.5d-max_reborn\lab1-2.5d-max_reborn\lab1\mesh.cpp(32): warning C4018: '<': signed/unsigned mismatch
-  Display.cpp
-  Bar.cpp
-  Generating Code...
+﻿  Display.cpp
   Lab1.vcxproj -> C:\Users\GOD TIER USER\Documents\GitHub\2.5D-MAX_REBORN\LAB1-2.5D-MAX_REBORN\Lab1\Debug\Lab1.exe

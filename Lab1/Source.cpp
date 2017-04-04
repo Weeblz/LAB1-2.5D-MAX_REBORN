@@ -11,8 +11,9 @@
 int main(int argc, char** argv) {
 	Display workingArea(800, 600, "Random Title");
 	Shader shader("basicShader");
-	Camera camera(glm::vec3(-2, 2, -10), 70.0f, (float)800 / (float)600, 0.01f, 1000.0f);
+	Camera camera(glm::vec3(2, 2, 10), 70.0f, (float)800 / (float)600, 0.01f, 1000.0f);
 	Transform Dynamic, None;
+	int xClick = -1, yClick = -1;
 
 	Bar bar(800, 600, "ATB");
 
@@ -30,23 +31,28 @@ int main(int argc, char** argv) {
 		workingArea.windowClear(0.5f, 0.5f, 0.5f, 1.0f);
 		shader.bind();
 
+		if (xClick != -1 && yClick != -1)
+			std::cout << xClick << " " << yClick << std::endl;
+
+
 		shader.update(None, camera);
+		glStencilFunc(GL_ALWAYS, 0, -1);
 		X.draw(GL_LINES);
 		Y.draw(GL_LINES);
 		Z.draw(GL_LINES);
 
 		for (int i = 0; i < objects.size(); i++) {
-			shader.update(objects[i].getTransformation(), camera);
+			if (objects[i].isActive()) {
+				objects[i].updateState(Dynamic);
+				shader.update(objects[i].getTransformation(), camera);
+				glStencilFunc(GL_ALWAYS, i + 1, -1);
+			}
 			objects[i].getType() == Ellipsoid ? ellipsoid.draw(GL_TRIANGLES) : cuboid.draw(GL_TRIANGLES);
 		}
-		//cuboid.draw(GL_TRIANGLES);
-
-		//Dynamic.setScale({2, 2, 2});
-		//shader.update(Dynamic, camera);
 
 		TwDraw();
 
-		workingArea.windowUpdate();
+		Dynamic = workingArea.windowUpdate(xClick, yClick);
 	}
 	return 0;
 }

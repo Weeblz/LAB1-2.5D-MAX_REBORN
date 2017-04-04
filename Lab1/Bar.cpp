@@ -13,9 +13,9 @@ Bar::Bar(int width, int height, const std::string& title) {
 
 	myBar = TwNewBar(title.c_str());
 
-	TwAddVarRW(myBar, "xAxis", TW_TYPE_DOUBLE, &x, " keyincr=x keydecr=X min=0.1 max=10.0 step=0.01 ");
-	TwAddVarRW(myBar, "yAxis", TW_TYPE_DOUBLE, &y, " keyincr=y keydecr=Y min=0.1 max=10.0 step=0.01 ");
-	TwAddVarRW(myBar, "zAxis", TW_TYPE_DOUBLE, &z, " keyincr=z keydecr=Z min=0.1 max=10.0 step=0.01 ");
+	TwAddVarRW(myBar, "xAxis", TW_TYPE_DOUBLE, &x, " min=0.1 max=10.0 step=0.01 ");
+	TwAddVarRW(myBar, "yAxis", TW_TYPE_DOUBLE, &y, " min=0.1 max=10.0 step=0.01 ");
+	TwAddVarRW(myBar, "zAxis", TW_TYPE_DOUBLE, &z, " min=0.1 max=10.0 step=0.01 ");
 	
 	TwAddButton(myBar, "NewEllipsoid", createEllipsoid, NULL, NULL);
 	TwAddButton(myBar, "NewCuboid", createCuboid, NULL, NULL);

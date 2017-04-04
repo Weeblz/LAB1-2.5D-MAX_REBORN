@@ -31,6 +31,21 @@ public:
 	void setRotation(glm::vec3 rot) { rotation = rot; }
 	void setScale(glm::vec3 sc) { scale = sc; }
 
+	void incrX() { position += glm::vec3(0.1f, 0.0f, 0.0f); }
+	void incrY() { position += glm::vec3(0.0f, 0.1f, 0.0f); }
+	void incrZ() { position += glm::vec3(0.0f, 0.0f, 0.1f); }
+
+	void decrX() { position -= glm::vec3(0.1f, 0.0f, 0.0f); }
+	void decrY() { position -= glm::vec3(0.0f, 0.1f, 0.0f); }
+	void decrZ() { position -= glm::vec3(0.0f, 0.0f, 0.1f); }
+
+	void turnX() { rotation += glm::vec3(0.1f, 0.0f, 0.0f); }
+	void turnY() { rotation += glm::vec3(0.0f, 0.1f, 0.0f); }
+	void turnZ() { rotation += glm::vec3(0.0f, 0.0f, 0.1f); }
+
+	void shrink() { scale /= glm::vec3(1.1f, 1.1f, 1.1f); }
+	void expand() { scale *= glm::vec3(1.1f, 1.1f, 1.1f); }
+
 	void reset() {
 		position = glm::vec3();
 		rotation = glm::vec3();
@@ -41,7 +56,7 @@ public:
 		Transform result(*this);
 		result.position = this->position + a.position;
 		result.rotation = this->rotation + a.rotation;
-		result.scale = this->scale + a.scale;
+		result.scale = this->scale * a.scale;
 		return result;
 	}
 

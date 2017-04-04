@@ -8,7 +8,7 @@ public:
 	Camera(const glm::vec3& pos, float field, float aspect, float zNear, float zFar) {
 		perspective = glm::perspective(field, aspect, zNear, zFar);
 		position = pos;
-		forwardDir = glm::vec3(0, 0, 1);
+		forwardDir = glm::vec3(0, 0, -1);
 		upDir = glm::vec3(0, 1, 0);
 	}
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <SDL2\SDL.h>
+#include "Transform.h"
 
 class Display {
 public:
@@ -9,7 +10,7 @@ public:
 	virtual ~Display();
 
 	void windowClear(float r, float g, float b, float a);
-	void windowUpdate();
+	Transform windowUpdate(int& x, int& y);
 	bool isClosed();
 private:
 	bool windowClosed;
