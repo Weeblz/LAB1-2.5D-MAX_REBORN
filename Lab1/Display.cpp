@@ -36,13 +36,13 @@ Display::~Display() {
 	SDL_Quit();
 }
 
-Transform Display::windowUpdate(int& x, int& y) {
+bool Display::windowUpdate(int& x, int& y, Transform& pending, int& projectionMode) {
  	SDL_GL_SwapWindow(myWindow);
 
+	bool changeColor = false;
 	x = -1;		// if no click registred x and y are -1
 	y = -1;
 
-	Transform pending;
 	GLuint index;
 	int handled;
 
@@ -78,19 +78,19 @@ Transform Display::windowUpdate(int& x, int& y) {
 						case SDLK_RIGHT:
 							pending.incrX();
 							break;
-						case SDLK_f:			// f is for "FAR"
+						case SDLK_f:			// "f" is for "FAR"
 							pending.decrZ();
 							break;
-						case SDLK_n:			// n is for "NEAR"
+						case SDLK_n:			// "n" is for "NEAR"
 							pending.incrZ();
 							break;
-						case SDLK_x:		    // turning active figure around it's x axis (not quite visible for ellipsoids)
+						case SDLK_x:		    // turning active figure around it's "x" axis (not quite visible for ellipsoids)
 							pending.turnX();
 							break;
-						case SDLK_y:			// turning active figure around it's y axis
+						case SDLK_y:			// turning active figure around it's "y" axis
 							pending.turnY();
 							break;
-						case SDLK_z:			// turning active figure around it's z axis
+						case SDLK_z:			// turning active figure around it's "z" axis
 							pending.turnZ();
 							break;
 						case SDLK_s:
@@ -99,11 +99,26 @@ Transform Display::windowUpdate(int& x, int& y) {
 						case SDLK_e:
 							pending.expand();
 							break;
+						case SDLK_c:			// changing "c"olor for active objects
+							changeColor = true;
+							break;
+						case SDLK_0:
+							projectionMode = NO_PROJECTIONS; // turn off projections
+							break;
+						case SDLK_1:
+							projectionMode = X_PROJECTION;	 // show x projection [only]
+							break;
+						case SDLK_2:
+							projectionMode = Y_PROJECTION;	 // show y projection [only]
+							break;
+						case SDLK_3:
+							projectionMode = Z_PROJECTION;	 // show z projection [only]
+							break;
 					}
 			}
 		}
 	}
-	return pending;
+	return changeColor;
 }
 
 bool Display::isClosed() {

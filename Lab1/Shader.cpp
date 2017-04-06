@@ -82,7 +82,9 @@ Shader::Shader(const std::string& filename) {
 	glValidateProgram(myProgram);
 	checkErrors(myProgram, GL_VALIDATE_STATUS, true, "Program validating failed");
 
+	myUniforms[PROJECTION_MODE_U] = glGetUniformLocation(myProgram, "mode");
 	myUniforms[TRANSFORM_U] = glGetUniformLocation(myProgram, "transform");
+	myUniforms[COLOR_U] = glGetUniformLocation(myProgram, "color");
 }
 
 Shader::~Shader() {
@@ -98,8 +100,10 @@ void Shader::bind() {
 	glUseProgram(myProgram);
 }
 
-void Shader::update(const Transform& transform, const Camera& cam) {
+void Shader::update(const Transform& transform, const Camera& cam, const glm::vec4 newColor, const int mode) {
 	glm::mat4 model = cam.getViewProjecion() * transform.getModel();
 
+	glUniform1i(myUniforms[PROJECTION_MODE_U], mode);
+	glUniform4fv(myUniforms[COLOR_U], 1, &newColor[0]);
 	glUniformMatrix4fv(myUniforms[TRANSFORM_U], 1, GL_FALSE, &model[0][0]);
 }

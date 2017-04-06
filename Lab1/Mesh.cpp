@@ -5,7 +5,6 @@
 #include "Mesh.h"
 
 void LoadMesh(std::string path, std::vector<Vertex>& vertices) {
-	//std::string inputfile = "res/ellipsoid.obj";
 	tinyobj::attrib_t attrib;
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
@@ -38,9 +37,6 @@ void LoadMesh(std::string path, std::vector<Vertex>& vertices) {
 				vertices.push_back(Vertex({ vx, vy, vz }));
 			}
 			index_offset += fv;
-
-			// per-face material
-			//shapes[s].mesh.material_ids[f];
 		}
 	}
 }

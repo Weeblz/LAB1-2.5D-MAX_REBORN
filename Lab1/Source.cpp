@@ -13,7 +13,9 @@ int main(int argc, char** argv) {
 	Shader shader("basicShader");
 	Camera camera(glm::vec3(2, 2, 10), 70.0f, (float)800 / (float)600, 0.01f, 1000.0f);
 	Transform Dynamic, None;
-	int xClick = -1, yClick = -1;
+	bool changeColor = false;		//do we need to get new colors for active objects or not
+	int mode = 0;					//object projections mode. See defines in Figure.h
+	int xClick = -1, yClick = -1;	//storing clicks coordinates
 
 	Bar bar(800, 600, "ATB");
 
@@ -25,17 +27,11 @@ int main(int argc, char** argv) {
 	Mesh ellipsoid("res/ellipsoid.obj");
 	Mesh cuboid("res/cuboid.obj");
 
-	glPolygonMode(GL_FRONT, GL_LINE);
-	
 	while (!workingArea.isClosed()) {
 		workingArea.windowClear(0.5f, 0.5f, 0.5f, 1.0f);
 		shader.bind();
 
-		if (xClick != -1 && yClick != -1)
-			std::cout << xClick << " " << yClick << std::endl;
-
-
-		shader.update(None, camera);
+		shader.update(None, camera, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), NO_PROJECTIONS);
 		glStencilFunc(GL_ALWAYS, 0, -1);
 		X.draw(GL_LINES);
 		Y.draw(GL_LINES);
@@ -44,15 +40,24 @@ int main(int argc, char** argv) {
 		for (int i = 0; i < objects.size(); i++) {
 			if (objects[i].isActive()) {
 				objects[i].updateState(Dynamic);
-				shader.update(objects[i].getTransformation(), camera);
-				glStencilFunc(GL_ALWAYS, i + 1, -1);
+				if (changeColor) {
+					objects[i].updateColor();
+				}
+				if (mode) {
+					shader.update(objects[i].getTransformation(), camera, objects[i].getColor(), mode);
+					glStencilFunc(GL_ALWAYS, 0, -1);
+					objects[i].getType() == Ellipsoid ? ellipsoid.draw(GL_TRIANGLES) : cuboid.draw(GL_TRIANGLES);
+				}
 			}
+			shader.update(objects[i].getTransformation(), camera, objects[i].getColor(), NO_PROJECTIONS);
+			glStencilFunc(GL_ALWAYS, i + 1, -1);
 			objects[i].getType() == Ellipsoid ? ellipsoid.draw(GL_TRIANGLES) : cuboid.draw(GL_TRIANGLES);
 		}
 
 		TwDraw();
 
-		Dynamic = workingArea.windowUpdate(xClick, yClick);
+		Dynamic.reset();
+		changeColor = workingArea.windowUpdate(xClick, yClick, Dynamic, mode);
 	}
 	return 0;
 }

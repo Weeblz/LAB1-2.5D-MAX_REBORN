@@ -10,7 +10,7 @@ public:
 	virtual ~Display();
 
 	void windowClear(float r, float g, float b, float a);
-	Transform windowUpdate(int& x, int& y);
+	bool windowUpdate(int& x, int& y, Transform& pending, int& projectionMode);
 	bool isClosed();
 private:
 	bool windowClosed;
