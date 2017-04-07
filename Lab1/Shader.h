@@ -14,7 +14,7 @@ public:
 private:
 	static const unsigned int NUM_SHADERS = 2;
 
-	enum { TRANSFORM_U, COLOR_U, PROJECTION_MODE_U, NUM_UNIFORMS};
+	enum { TRANSFORM_U, VIEW_PROJECTION_U, COLOR_U, PROJECTION_MODE_U, NUM_UNIFORMS};
 
 	GLuint myProgram;
 	GLuint myShaders[NUM_SHADERS];

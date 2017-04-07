@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "DataBase.h"
 #include "Display.h"
 #include "Shader.h"
 #include "Mesh.h"
@@ -13,6 +14,9 @@ int main(int argc, char** argv) {
 	Shader shader("basicShader");
 	Camera camera(glm::vec3(2, 2, 10), 70.0f, (float)800 / (float)600, 0.01f, 1000.0f);
 	Transform Dynamic, None;
+	DataBase db;
+
+	bool saveScene = false;
 	bool changeColor = false;		//do we need to get new colors for active objects or not
 	int mode = 0;					//object projections mode. See defines in Figure.h
 	int xClick = -1, yClick = -1;	//storing clicks coordinates
@@ -31,6 +35,10 @@ int main(int argc, char** argv) {
 		workingArea.windowClear(0.5f, 0.5f, 0.5f, 1.0f);
 		shader.bind();
 
+		if (saveScene) {
+			db.insertData();
+			saveScene = false;
+		}
 		shader.update(None, camera, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), NO_PROJECTIONS);
 		glStencilFunc(GL_ALWAYS, 0, -1);
 		X.draw(GL_LINES);
@@ -57,7 +65,7 @@ int main(int argc, char** argv) {
 		TwDraw();
 
 		Dynamic.reset();
-		changeColor = workingArea.windowUpdate(xClick, yClick, Dynamic, mode);
+		changeColor = workingArea.windowUpdate(xClick, yClick, Dynamic, mode, saveScene);
 	}
 	return 0;
 }

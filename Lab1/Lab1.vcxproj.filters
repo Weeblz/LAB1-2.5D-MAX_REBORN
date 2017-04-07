@@ -22,6 +22,12 @@
     <ClCompile Include="Bar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DataBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h" />
@@ -31,5 +37,6 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Figure.h" />
     <ClInclude Include="Bar.h" />
+    <ClInclude Include="DataBase.h" />
   </ItemGroup>
 </Project>

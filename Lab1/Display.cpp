@@ -23,6 +23,8 @@ Display::Display(int width, int height, const std::string& windowTitle) {
 		std::cerr << "Glew isn't initialized" << std::endl;
 	}
 
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_STENCIL_TEST);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
@@ -36,7 +38,7 @@ Display::~Display() {
 	SDL_Quit();
 }
 
-bool Display::windowUpdate(int& x, int& y, Transform& pending, int& projectionMode) {
+bool Display::windowUpdate(int& x, int& y, Transform& pending, int& projectionMode, bool& saveScene) {
  	SDL_GL_SwapWindow(myWindow);
 
 	bool changeColor = false;
@@ -113,6 +115,9 @@ bool Display::windowUpdate(int& x, int& y, Transform& pending, int& projectionMo
 							break;
 						case SDLK_3:
 							projectionMode = Z_PROJECTION;	 // show z projection [only]
+							break;
+						case SDLK_F1:
+							saveScene = true;
 							break;
 					}
 			}

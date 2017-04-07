@@ -20,7 +20,7 @@ public:
 		transformation = Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(x, y, z));
 		color = glm::vec4({ static_cast <float> (rand()) / static_cast <float> (RAND_MAX),
 							static_cast <float> (rand()) / static_cast <float> (RAND_MAX),
-							static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 0.5 });
+							static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 1.0 });
 
 		projectionMode = NO_PROJECTIONS;
 		active = true;
@@ -32,7 +32,7 @@ public:
 	void updateColor() {
 		color = glm::vec4({ static_cast <float> (rand()) / static_cast <float> (RAND_MAX),
 							static_cast <float> (rand()) / static_cast <float> (RAND_MAX),
-							static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 0.5 });
+							static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 1.0 });
 	}
 	void updateActive() { active = !active; }
 

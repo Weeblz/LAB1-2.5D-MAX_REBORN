@@ -63,7 +63,7 @@ Mesh::Mesh(Vertex* vertices, int numVertices) {
 	glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(vertices[0]), vertices, GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 4*3, 0);
 
 	glBindVertexArray(0);
 }
