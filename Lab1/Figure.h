@@ -22,8 +22,14 @@ public:
 							static_cast <float> (rand()) / static_cast <float> (RAND_MAX),
 							static_cast <float> (rand()) / static_cast <float> (RAND_MAX), 1.0 });
 
-		projectionMode = NO_PROJECTIONS;
 		active = true;
+	}
+
+	Figure(figureType essence, bool isActive, glm::vec4 color, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) {
+		this->essence = essence;
+		active = isActive;
+		transformation = Transform(position, rotation, scale);
+		this->color = color;
 	}
 
 	void updateState(Transform transform) {
@@ -36,15 +42,6 @@ public:
 	}
 	void updateActive() { active = !active; }
 
-	unsigned getMode() { return projectionMode; }
-
-	void setMode(const unsigned mode) {
-		if (mode < 4 && mode != 0) {
-			projectionMode = mode;
-		}
-		else projectionMode = 0;
-	}
-
 	bool isActive() { return active; }
 	glm::vec4 getColor() { return color; }
 	Transform getTransformation() { return transformation; }
@@ -54,6 +51,5 @@ private:
 	figureType essence;
 	Transform transformation;
 	glm::vec4 color;
-	unsigned projectionMode;
 	bool active;
 };

@@ -2,12 +2,30 @@
 #include "Bar.h"
 #include <iostream>
 #include <sstream>
+#include <string>
 
 DataBase::DataBase() {
 	if (sqlite3_open("save.db", &db) != SQLITE_OK) {
 		std::cerr << "Error opening db file." << std::endl;
 		this->~DataBase();
 	}
+	createTable();
+}
+
+DataBase::~DataBase() {
+	sqlite3_close(db);
+}
+
+void DataBase::clearTable() {
+	char* errmsg;
+	const char* sql_clear_table = "DELETE FROM objects";
+	if (sqlite3_exec(db, sql_clear_table, NULL, NULL, &errmsg)) {
+		std::cerr << "Error clearing table." << std::endl;
+		sqlite3_free(errmsg);
+	}
+}
+
+void DataBase::createTable() {
 	char* errmsg;
 	const char* sql_create_table = "CREATE TABLE IF NOT EXISTS objects(essence INTEGER, isActive INTEGER, color_r REAL, color_g REAL, color_b REAL, color_a REAL, positionX REAL, positionY REAL, positionZ REAL, rotationX REAL, rotationY REAL, rotationZ REAL, scaleX REAL, scaleY REAL, scaleZ REAL);";
 	if (sqlite3_exec(db, sql_create_table, NULL, NULL, &errmsg)) {
@@ -16,11 +34,38 @@ DataBase::DataBase() {
 	}
 }
 
-DataBase::~DataBase() {
-	sqlite3_close(db);
+int callback(void* notUsed, int argc, char** argv, char**azColName) {
+	notUsed = 0;
+	
+	figureType essence;
+	bool isActive;
+	glm::vec3 position, rotation, scale;
+	glm::vec4 color;
+
+	essence = (figureType)(atoi(argv[0]));
+	isActive = (argv[1][0] == '1');
+	color = glm::vec4(atof(argv[2]), atof(argv[3]), atof(argv[4]), atof(argv[5]));
+	position = glm::vec3(atof(argv[6]), atof(argv[7]), atof(argv[8]));
+	rotation = glm::vec3(atof(argv[9]), atof(argv[10]), atof(argv[11]));
+	scale = glm::vec3(atof(argv[12]), atof(argv[13]), atof(argv[14]));
+
+	objects.push_back(Figure(essence, isActive, color, position, rotation, scale));
+
+	return 0;
+}
+
+void DataBase::extractData() {
+	char* errmsg;
+	objects.clear();
+	const char* sql_get_data = "SELECT * FROM objects";
+	if (sqlite3_exec(db, sql_get_data, callback, NULL, &errmsg)) {
+		std::cerr << "Error getting data." << std::endl;
+		sqlite3_free(errmsg);
+	}
 }
 
 void DataBase::insertData() {
+	clearTable();
 	glm::vec4 tempColor;
 	Transform tempTransform;
 	char* errmsg;

@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
 	Transform Dynamic, None;
 	DataBase db;
 
-	bool saveScene = false;
+	unsigned int dataBaseMode = 0;  // 1 indicates that loading is needed, -1 indicates saving is needed, 0 - waiting for command
 	bool changeColor = false;		//do we need to get new colors for active objects or not
 	int mode = 0;					//object projections mode. See defines in Figure.h
 	int xClick = -1, yClick = -1;	//storing clicks coordinates
@@ -35,10 +35,17 @@ int main(int argc, char** argv) {
 		workingArea.windowClear(0.5f, 0.5f, 0.5f, 1.0f);
 		shader.bind();
 
-		if (saveScene) {
+		switch (dataBaseMode) {
+		case 1:
+			db.extractData();
+			dataBaseMode = 0;
+			break;
+		case -1:
 			db.insertData();
-			saveScene = false;
+			dataBaseMode = 0;
+			break;
 		}
+
 		shader.update(None, camera, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), NO_PROJECTIONS);
 		glStencilFunc(GL_ALWAYS, 0, -1);
 		X.draw(GL_LINES);
@@ -65,7 +72,7 @@ int main(int argc, char** argv) {
 		TwDraw();
 
 		Dynamic.reset();
-		changeColor = workingArea.windowUpdate(xClick, yClick, Dynamic, mode, saveScene);
+		changeColor = workingArea.windowUpdate(xClick, yClick, Dynamic, mode, dataBaseMode);
 	}
 	return 0;
 }

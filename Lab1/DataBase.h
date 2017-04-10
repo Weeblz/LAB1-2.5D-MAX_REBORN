@@ -8,8 +8,11 @@ public:
 	DataBase();
 	virtual ~DataBase();
 
-	void tableCreate();
+	void createTable();
+	void dropTable();
+	void clearTable();
 	void insertData();
+	void extractData();
 
 private:
 	sqlite3* db;

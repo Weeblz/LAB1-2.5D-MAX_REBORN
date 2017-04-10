@@ -38,7 +38,7 @@ Display::~Display() {
 	SDL_Quit();
 }
 
-bool Display::windowUpdate(int& x, int& y, Transform& pending, int& projectionMode, bool& saveScene) {
+bool Display::windowUpdate(int& x, int& y, Transform& pending, int& projectionMode, unsigned int& dataBaseMode) {
  	SDL_GL_SwapWindow(myWindow);
 
 	bool changeColor = false;
@@ -117,8 +117,10 @@ bool Display::windowUpdate(int& x, int& y, Transform& pending, int& projectionMo
 							projectionMode = Z_PROJECTION;	 // show z projection [only]
 							break;
 						case SDLK_F1:
-							saveScene = true;
+							dataBaseMode = -1;
 							break;
+						case SDLK_F2:
+							dataBaseMode = 1;
 					}
 			}
 		}
